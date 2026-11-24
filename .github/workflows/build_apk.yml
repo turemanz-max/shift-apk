@@ -20,8 +20,7 @@ jobs:
       
       - name: Build Debug APK
         run: |
-          python3 -c "import os,shutil; [shutil.copytree(os.path.join(r,n),os.path.join(r,n.strip()),dirs_exist_ok=True) or shutil.rmtree(os.path.join(r,n)) if os.path.isdir(os.path.join(r,n)) else shutil.move(os.path.join(r,n),os.path.join(r,n.strip())) for r,ds,fs in os.walk('.',topdown=False) for n in fs+ds if n!=n.strip() and '.git' not in r]"
-          ls -laQ
+          python3 -c "import os,shutil; [shutil.move(d,'app') for d in os.listdir('.') if os.path.isdir(d) and d not in ('.git','.github','app')]"
           ls -laQ app
           gradle :app:assembleDebug
 
