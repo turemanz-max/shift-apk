@@ -20,14 +20,8 @@ jobs:
       
       - name: Build Debug APK
         run: |
-          for d in app*; do
-            if [ -d "$d" ] && [ "$d" != "app" ]; then
-              mkdir -p app_clean
-              cp -r "$d"/. app_clean/
-              rm -rf "$d"
-              mv app_clean app
-            fi
-          done
+          python3 -c "import os,shutil; [shutil.copytree(os.path.join(r,n),os.path.join(r,n.strip()),dirs_exist_ok=True) or shutil.rmtree(os.path.join(r,n)) if os.path.isdir(os.path.join(r,n)) else shutil.move(os.path.join(r,n),os.path.join(r,n.strip())) for r,ds,fs in os.walk('.',topdown=False) for n in fs+ds if n!=n.strip() and '.git' not in r]"
+          find . -maxdepth 4 -not -path '*/.git*'
           gradle :app:assembleDebug
 
 
