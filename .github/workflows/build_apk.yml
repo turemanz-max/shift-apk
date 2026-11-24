@@ -22,7 +22,8 @@ jobs:
         run: |
           python3 -c "import os,shutil; [shutil.copytree(os.path.join(r,n),os.path.join(r,n.strip()),dirs_exist_ok=True) or shutil.rmtree(os.path.join(r,n)) if os.path.isdir(os.path.join(r,n)) else shutil.move(os.path.join(r,n),os.path.join(r,n.strip())) for r,ds,fs in os.walk('.',topdown=False) for n in fs+ds if n!=n.strip() and '.git' not in r]"
           cat settings.gradle.kts
-          gradle :app:assembleDebug --info
+          gradle :app:tasks
+
 
 
 
